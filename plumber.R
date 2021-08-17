@@ -1,26 +1,153 @@
+library("jsonlite")
+library("reader")
+
+json_data <- fromJSON("db/Mock_DESEQ2_table_Blood_forJSON.json")
+
+download_file_name <- "tmp_file"
+
 # plumber.R
 # Placeholder until the actual code is written.
 # Source https://github.com/rstudio/plumber/
 
 #* Echo back the input
-#* @param msg The message to echo
-#* @get /echo
-function(msg="") {
-  list(msg = paste0("The message is: '", msg, "'"))
+#* @serializer contentType list(type="text/html")
+#* @get /ping
+function() {
+  "pong"
 }
 
-#* Plot a histogram
+
+
+
+
+#* Return the TPM plot of gene in specific disease vs normal GTEx tissue
 #* @serializer png
-#* @get /plot
-function() {
+#* @param ensemblId The target id
+#* @param efoId  The disease  id
+#* @get /tpm/gene-disease-gtex/plot 
+function(ensemblId, efoId) {
   rand <- rnorm(100)
   hist(rand)
 }
 
-#* Return the sum of two numbers
-#* @param a The first number to add
-#* @param b The second number to add
-#* @post /sum
-function(a, b) {
-  as.numeric(a) + as.numeric(b)
+
+
+#* Return the TPM table’s data for plot of gene in specific disease vs normal GTEx tissue and in json format
+#* @serializer json
+#* @param ensemblId The target id
+#* @param efoId  The disease  id
+#* @get /tpm/gene-disease-gtex/jsonl
+function(ensemblId, efoId) {
+  
+  # This header is a convention that instructs browsers to present the response
+  # as a download named filename rather than trying to render it inline.
+  attachmentString = paste0("attachment; filename=", download_file_name+".json")
+  
+  res$setHeader("Content-Disposition", attachmentString)
+  
+  json_data
 }
+
+
+
+
+#* Return the TPM table’s data for plot of gene in specific disease vs normal GTEx tissue and in csv format
+#* @serializer csv
+#* @param ensemblId The target id
+#* @param efoId  The disease  id
+#* @get /tpm/gene-disease-gtex/csv
+function(res, ensemblId, efoId) {
+  
+  # This header is a convention that instructs browsers to present the response
+  # as a download named filename rather than trying to render it inline.
+  attachmentString = paste0("attachment; filename=", download_file_name+".csv")
+  
+  res$setHeader("Content-Disposition", attachmentString)
+  
+  json_data
+}
+
+
+
+#* Return the TPM table’s data for plot of gene in specific disease vs normal GTEx tissue and in tsv format
+#* @serializer tsv
+#* @param ensemblId The target id
+#* @param efoId  The disease  id
+#* @get /tpm/gene-disease-gtex/tsv
+function(ensemblId, efoId) {
+  
+  # This header is a convention that instructs browsers to present the response
+  # as a download named filename rather than trying to render it inline.
+  attachmentString = paste0("attachment; filename=", download_file_name+".tsv")
+  
+  res$setHeader("Content-Disposition", attachmentString)
+  
+  json_data
+}
+
+
+
+#* Return the TPM plot of gene across all cancers
+#* @serializer png
+#* @param ensemblId The target id
+#* @get /tpm/gene-all-cancer/plot
+function(ensemblId) {
+  rand <- rnorm(100)
+  hist(rand)
+}
+
+
+
+#* Return the TPM table’s data for plot of gene across all cancers in json format
+#* @serializer json
+#* @param ensemblId The target id
+#* @get /tpm/gene-all-cancer/jsonl
+function(ensemblId) {
+  
+  # This header is a convention that instructs browsers to present the response
+  # as a download named filename rather than trying to render it inline.
+  attachmentString = paste0("attachment; filename=", download_file_name+".json")
+  
+  res$setHeader("Content-Disposition", attachmentString)
+  
+  json_data
+}
+
+
+
+#* Return the TPM table’s data for plot of gene across all cancers in csv format
+#* @serializer csv
+#* @param ensemblId The target id
+#* @get /tpm/gene-all-cancer/csv
+function(ensemblId) {
+  
+  # This header is a convention that instructs browsers to present the response
+  # as a download named filename rather than trying to render it inline.
+  attachmentString = paste0("attachment; filename=", download_file_name+".csv")
+  
+  res$setHeader("Content-Disposition", attachmentString)
+  
+  json_data
+}
+
+
+
+#* Return the TPM table’s data for plot of gene across all cancers in tsv format
+#* @serializer tsv
+#* @param ensemblId The target id
+#* @get /tpm/gene-all-cancer/tsv
+function(ensemblId) {
+  
+  # This header is a convention that instructs browsers to present the response
+  # as a download named filename rather than trying to render it inline.
+  attachmentString = paste0("attachment; filename=", download_file_name+".tsv")
+  
+  res$setHeader("Content-Disposition", attachmentString)
+  
+  json_data
+
+}
+
+
+
+
