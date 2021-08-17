@@ -37,11 +37,11 @@ function(ensemblId, efoId) {
 #* @param ensemblId The target id
 #* @param efoId  The disease  id
 #* @get /tpm/gene-disease-gtex/jsonl
-function(ensemblId, efoId) {
+function(res,ensemblId, efoId) {
   
   # This header is a convention that instructs browsers to present the response
   # as a download named filename rather than trying to render it inline.
-  attachmentString = paste0("attachment; filename=", download_file_name+".json")
+  attachmentString = paste0("attachment; filename=", paste(download_file_name,".json",sep = ""))
   
   res$setHeader("Content-Disposition", attachmentString)
   
@@ -60,7 +60,7 @@ function(res, ensemblId, efoId) {
   
   # This header is a convention that instructs browsers to present the response
   # as a download named filename rather than trying to render it inline.
-  attachmentString = paste0("attachment; filename=", download_file_name+".csv")
+  attachmentString = paste0("attachment; filename=", paste(download_file_name,".csv",sep = ""))
   
   res$setHeader("Content-Disposition", attachmentString)
   
@@ -74,11 +74,11 @@ function(res, ensemblId, efoId) {
 #* @param ensemblId The target id
 #* @param efoId  The disease  id
 #* @get /tpm/gene-disease-gtex/tsv
-function(ensemblId, efoId) {
+function(res,ensemblId, efoId) {
   
   # This header is a convention that instructs browsers to present the response
   # as a download named filename rather than trying to render it inline.
-  attachmentString = paste0("attachment; filename=", download_file_name+".tsv")
+  attachmentString = paste0("attachment; filename=", paste(download_file_name,".tsv",sep = ""))
   
   res$setHeader("Content-Disposition", attachmentString)
   
@@ -102,11 +102,11 @@ function(ensemblId) {
 #* @serializer json
 #* @param ensemblId The target id
 #* @get /tpm/gene-all-cancer/jsonl
-function(ensemblId) {
+function(res,ensemblId) {
   
   # This header is a convention that instructs browsers to present the response
   # as a download named filename rather than trying to render it inline.
-  attachmentString = paste0("attachment; filename=", download_file_name+".json")
+  attachmentString = paste0("attachment; filename=", paste(download_file_name,".json",sep = ""))
   
   res$setHeader("Content-Disposition", attachmentString)
   
@@ -119,11 +119,11 @@ function(ensemblId) {
 #* @serializer csv
 #* @param ensemblId The target id
 #* @get /tpm/gene-all-cancer/csv
-function(ensemblId) {
+function(res,ensemblId) {
   
   # This header is a convention that instructs browsers to present the response
   # as a download named filename rather than trying to render it inline.
-  attachmentString = paste0("attachment; filename=", download_file_name+".csv")
+  attachmentString = paste0("attachment; filename=", paste(download_file_name,".csv",sep = ""))
   
   res$setHeader("Content-Disposition", attachmentString)
   
@@ -136,11 +136,11 @@ function(ensemblId) {
 #* @serializer tsv
 #* @param ensemblId The target id
 #* @get /tpm/gene-all-cancer/tsv
-function(ensemblId) {
+function(res,ensemblId) {
   
   # This header is a convention that instructs browsers to present the response
   # as a download named filename rather than trying to render it inline.
-  attachmentString = paste0("attachment; filename=", download_file_name+".tsv")
+  attachmentString = paste0("attachment; filename=", paste(download_file_name,".tsv",sep = ""))
   
   res$setHeader("Content-Disposition", attachmentString)
   
